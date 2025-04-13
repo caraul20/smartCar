@@ -42,7 +42,7 @@ export default function SearchBar({
     } else {
       setSuggestions([]);
     }
-  }, [query]);
+  }, [query, allSuggestions]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

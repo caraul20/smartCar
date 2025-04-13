@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface BentoCardProps {
   className?: string;
@@ -88,11 +89,12 @@ export function BentoCard({
         )}
         
         {thumbnailUrl && (
-          <div className="mb-4 overflow-hidden rounded-xl">
-            <img
+          <div className="mb-4 overflow-hidden rounded-xl relative aspect-video">
+            <Image
               src={thumbnailUrl}
-              alt={title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              alt={title || "Card image"}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
         )}
