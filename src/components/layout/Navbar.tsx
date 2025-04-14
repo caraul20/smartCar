@@ -58,7 +58,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/rent', label: 'Închirieri' },
-    { href: '/sell', label: 'Vânzări' },
+    { href: '/cars', label: 'Vânzări' },
     { href: '/offers', label: 'Oferte' },
     { href: '/about', label: 'Despre Noi' },
     { href: '/contact', label: 'Contact' },
