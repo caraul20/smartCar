@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, lazy, useState, useEffect } from 'react';
+import { Suspense, lazy, useState, useEffect, useCallback } from 'react';
 import { Car } from '@/lib/types';
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { firestore } from '@/lib/firebase/config';
@@ -29,56 +29,57 @@ export default function Home() {
   const [isLoadingCars, setIsLoadingCars] = useState(true);
   const [errorLoadingCars, setErrorLoadingCars] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchCarsFromDB = async () => {
-      setIsLoadingCars(true);
-      setErrorLoadingCars(null);
-      try {
-        const carsRef = collection(firestore, "cars");
-        const q = query(carsRef, orderBy("rating", "desc"), limit(12)); 
-        const querySnapshot = await getDocs(q);
-        const carsData: Car[] = [];
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          carsData.push({ 
-            id: doc.id, 
-            name: data.name ?? 'N/A',
-            brand: data.brand ?? 'N/A',
-            model: data.model ?? 'N/A',
-            year: data.year ?? 0,
-            color: data.color ?? '#000000',
-            pricePerDay: data.pricePerDay ?? 0,
-            pricePerWeek: data.pricePerWeek ?? 0, 
-            pricePerMonth: data.pricePerMonth ?? 0, 
-            fuelType: data.fuelType ?? 'gasoline',
-            transmission: data.transmission ?? 'manual',
-            seats: data.seats ?? 0,
-            doors: data.doors ?? 0,
-            availableFrom: data.availableFrom ?? '',
-            availableTo: data.availableTo ?? '',
-            features: data.features ?? [],
-            imageUrl: data.imageUrl ?? '',
-            rating: data.rating ?? 0,
-            location: data.location ?? 'N/A',
-            description: data.description ?? '',
-            category: data.category ?? 'economy',
-            originalPricePerDay: data.originalPricePerDay
-          });
+  const fetchCarsFromDB = useCallback(async () => {
+    setIsLoadingCars(true);
+    setErrorLoadingCars(null);
+    try {
+      const carsRef = collection(firestore, "cars");
+      const q = query(carsRef, orderBy("rating", "desc"), limit(12)); 
+      const querySnapshot = await getDocs(q);
+      const carsData: Car[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        carsData.push({ 
+          id: doc.id, 
+          name: data.name ?? 'N/A',
+          brand: data.brand ?? 'N/A',
+          model: data.model ?? 'N/A',
+          year: data.year ?? 0,
+          color: data.color ?? '#000000',
+          pricePerDay: data.pricePerDay ?? 0,
+          pricePerWeek: data.pricePerWeek ?? 0, 
+          pricePerMonth: data.pricePerMonth ?? 0, 
+          fuelType: data.fuelType ?? 'gasoline',
+          transmission: data.transmission ?? 'manual',
+          seats: data.seats ?? 0,
+          doors: data.doors ?? 0,
+          availableFrom: data.availableFrom ?? '',
+          availableTo: data.availableTo ?? '',
+          features: data.features ?? [],
+          imageUrl: data.imageUrl ?? '',
+          rating: data.rating ?? 0,
+          location: data.location ?? 'N/A',
+          description: data.description ?? '',
+          category: data.category ?? 'economy',
+          originalPricePerDay: data.originalPricePerDay
         });
-        setAllCars(carsData);
-      } catch (err) {
-        console.error("Error fetching cars for homepage: ", err);
-        if (err instanceof Error && (err.message.includes('permission-denied') || err.message.includes('insufficient permissions'))) {
-          setErrorLoadingCars("Eroare de permisiuni la citirea mașinilor. Verificați regulile Firestore.");
-        } else {
-          setErrorLoadingCars("Nu s-au putut încărca mașinile. Încercați din nou.");
-        }
-      } finally {
-        setIsLoadingCars(false);
+      });
+      setAllCars(carsData);
+    } catch (err) {
+      console.error("Error fetching cars for homepage: ", err);
+      if (err instanceof Error && (err.message.includes('permission-denied') || err.message.includes('insufficient permissions'))) {
+        setErrorLoadingCars("Eroare de permisiuni la citirea mașinilor. Verificați regulile Firestore.");
+      } else {
+        setErrorLoadingCars("Nu s-au putut încărca mașinile. Încercați din nou.");
       }
-    };
-    fetchCarsFromDB();
+    } finally {
+      setIsLoadingCars(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchCarsFromDB();
+  }, [fetchCarsFromDB]);
 
   const luxuryCars = !isLoadingCars ? allCars.filter(car => car.category === 'luxury').slice(0, 3) : [];
   const standardCars = !isLoadingCars ? allCars.filter(car => car.category !== 'luxury') : [];

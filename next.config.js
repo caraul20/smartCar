@@ -22,6 +22,10 @@ const nextConfig = {
       },
     ],
   },
+  // Asigură că link-urile funcționează corect pe Vercel
+  trailingSlash: false,
+  // Activare mod output exportat
+  output: 'standalone',
 };
 
 module.exports = nextConfig; 

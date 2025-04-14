@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import SearchBar from './SearchBar';
 import Image from 'next/image';
@@ -28,10 +28,11 @@ export default function HeroSection() {
     setParticles(particlesData);
   }, []);
 
-  const handleSearch = (query: string) => {
+  // Transformăm handleSearch în useCallback pentru a evita recrearea funcției la fiecare render
+  const handleSearch = useCallback((query: string) => {
     console.log('Searching for:', query);
     // Implementare logică de căutare
-  };
+  }, []);
 
   return (
     <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden min-h-[90vh] flex items-center">

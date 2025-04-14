@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SearchBarProps {
@@ -8,6 +8,20 @@ interface SearchBarProps {
   initialQuery?: string;
   placeholder?: string;
 }
+
+// Move suggestions array outside component to prevent recreation on each render
+const DEFAULT_SUGGESTIONS = [
+  'Tesla Model 3',
+  'BMW X5',
+  'Audi A4',
+  'Mercedes GLC',
+  'Volkswagen Golf',
+  'Renault Clio',
+  'Toyota Corolla',
+  'Hyundai Tucson',
+  'Dacia Duster',
+  'Ford Focus'
+];
 
 export default function SearchBar({ 
   onSearch, 
@@ -19,22 +33,11 @@ export default function SearchBar({
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
   // Exemplu de sugestii (în producție acestea ar putea veni din backend)
-  const allSuggestions = [
-    'Tesla Model 3',
-    'BMW X5',
-    'Audi A4',
-    'Mercedes GLC',
-    'Volkswagen Golf',
-    'Renault Clio',
-    'Toyota Corolla',
-    'Hyundai Tucson',
-    'Dacia Duster',
-    'Ford Focus'
-  ];
+  // Removed from component body
 
   useEffect(() => {
     if (query.length > 1) {
-      const filteredSuggestions = allSuggestions.filter(suggestion => 
+      const filteredSuggestions = DEFAULT_SUGGESTIONS.filter(suggestion => 
         suggestion.toLowerCase().includes(query.toLowerCase())
       ).slice(0, 5);
       
@@ -42,7 +45,7 @@ export default function SearchBar({
     } else {
       setSuggestions([]);
     }
-  }, [query, allSuggestions]);
+  }, [query]); // Remove allSuggestions from dependencies
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
