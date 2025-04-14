@@ -6,11 +6,12 @@ import { firestore } from '@/lib/firebase/config';
 import CarCard from '@/components/cars/CarCard';
 import SearchBar from '@/components/ui/SearchBar';
 import { cn } from '@/lib/utils';
+import { Car } from '@/lib/types';
 
 export default function CarsPage() {
-  const [cars, setCars] = useState<Record<string, any>[]>([]);
+  const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filteredCars, setFilteredCars] = useState<Record<string, any>[]>([]);
+  const [filteredCars, setFilteredCars] = useState<Car[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function CarsPage() {
         const carsData = carsSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
-        }));
+        })) as Car[];
         setCars(carsData);
         setFilteredCars(carsData);
       } catch (error) {
