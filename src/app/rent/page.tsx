@@ -11,7 +11,7 @@ export default function RentPage() {
     {
       id: 1,
       name: 'Audi Q7',
-      image: '/images/cars/audi-q7.jpg',
+      image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1770&auto=format&fit=crop',
       pricePerDay: 75,
       category: 'SUV',
       features: ['5 Locuri', 'Automat', 'Diesel', 'GPS', 'Wi-Fi'],
@@ -19,7 +19,7 @@ export default function RentPage() {
     {
       id: 2,
       name: 'BMW Seria 5',
-      image: '/images/cars/bmw-5.jpg',
+      image: 'https://images.unsplash.com/photo-1614162692292-7c54f3599f9e?q=80&w=1974&auto=format&fit=crop',
       pricePerDay: 65,
       category: 'Sedan',
       features: ['5 Locuri', 'Automat', 'Benzină', 'Scaune încălzite', 'Bluetooth'],
@@ -27,7 +27,7 @@ export default function RentPage() {
     {
       id: 3,
       name: 'Mercedes C-Class',
-      image: '/images/cars/mercedes-c.jpg',
+      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1770&auto=format&fit=crop',
       pricePerDay: 60,
       category: 'Sedan',
       features: ['5 Locuri', 'Automat', 'Benzină', 'Camera parcare', 'Control climă'],
@@ -35,7 +35,7 @@ export default function RentPage() {
     {
       id: 4,
       name: 'Volkswagen Passat',
-      image: '/images/cars/vw-passat.jpg',
+      image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=1770&auto=format&fit=crop',
       pricePerDay: 45,
       category: 'Sedan',
       features: ['5 Locuri', 'Manual', 'Diesel', 'Cruise control', 'Bluetooth'],

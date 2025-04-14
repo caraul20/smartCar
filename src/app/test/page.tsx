@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { firestore } from '@/lib/firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
+import { Car } from '@/lib/types';
 
 export default function TestPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Car[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,11 +18,11 @@ export default function TestPage() {
         const carsRef = collection(firestore, 'cars');
         const snapshot = await getDocs(carsRef);
         
-        const results: any[] = [];
+        const results: Car[] = [];
         snapshot.forEach(doc => {
           results.push({
             id: doc.id,
-            ...doc.data()
+            ...doc.data() as Omit<Car, 'id'>
           });
         });
         
@@ -61,7 +62,7 @@ export default function TestPage() {
       )}
       
       {!isLoading && data.length === 0 && !error && (
-        <p>Nu s-au găsit date în colecția 'cars'. Verifică dacă această colecție există în Firestore.</p>
+        <p>Nu s-au găsit date în colecția &apos;cars&apos;. Verifică dacă această colecție există în Firestore.</p>
       )}
 
       <div className="mt-6">

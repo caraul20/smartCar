@@ -4,7 +4,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['cdn.pixabay.com', 'images.unsplash.com', 'www.largus.fr'],
+    domains: ['cdn.pixabay.com', 'images.unsplash.com', 'www.largus.fr', 'firebasestorage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,6 +19,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.largus.fr',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
         pathname: '**',
       },
     ],

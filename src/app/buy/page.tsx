@@ -11,7 +11,7 @@ export default function BuyPage() {
     {
       id: 1,
       name: 'Audi A4 2021',
-      image: '/images/cars/audi-a4.jpg',
+      image: 'https://images.unsplash.com/photo-1606152421006-b8636d750ee7?q=80&w=1974&auto=format&fit=crop',
       price: 31500,
       mileage: 15000,
       year: 2021,
@@ -22,7 +22,7 @@ export default function BuyPage() {
     {
       id: 2,
       name: 'BMW X3 2020',
-      image: '/images/cars/bmw-x3.jpg',
+      image: 'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?q=80&w=1970&auto=format&fit=crop',
       price: 35800,
       mileage: 22000,
       year: 2020,
@@ -33,7 +33,7 @@ export default function BuyPage() {
     {
       id: 3,
       name: 'Mercedes GLC 2019',
-      image: '/images/cars/mercedes-glc.jpg',
+      image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1825&auto=format&fit=crop',
       price: 33200,
       mileage: 31000,
       year: 2019,
@@ -44,7 +44,7 @@ export default function BuyPage() {
     {
       id: 4,
       name: 'Volkswagen Golf 8 2022',
-      image: '/images/cars/vw-golf.jpg',
+      image: 'https://images.unsplash.com/photo-1589187775328-182e71748b5c?q=80&w=1974&auto=format&fit=crop',
       price: 24500,
       mileage: 8000,
       year: 2022,
