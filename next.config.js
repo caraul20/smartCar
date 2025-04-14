@@ -2,8 +2,9 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
+    domains: ['cdn.pixabay.com', 'images.unsplash.com', 'www.largus.fr'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,10 +23,20 @@ const nextConfig = {
       },
     ],
   },
-  // Asigură că link-urile funcționează corect pe Vercel
+  // Configurare pentru Vercel
   trailingSlash: false,
-  // Activare mod output exportat
+  // Asigurăm că build-ul include toate dependențele necesare
   output: 'standalone',
+  // Îmbunătățește performance și hidratarea
+  swcMinify: true,
+  // Setează modurile de compilare pentru a asigura compatibilitatea maximă
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+  // Activează analytics pentru a monitoriza performanța
+  analyticsId: process.env.NEXT_PUBLIC_ANALYTICS_ID,
 };
 
 module.exports = nextConfig; 
